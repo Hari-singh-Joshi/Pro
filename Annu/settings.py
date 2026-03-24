@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l#2q(95krxuw2&xs^kyisi^trp3kw80$dtr_13nv43ew%=hq+z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -86,11 +86,18 @@ WSGI_APPLICATION = 'Annu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+import os
+from pathlib import Path
+import dj_database_url
+from dotenv import load_dotenv
+
+
+# Load .env file
+load_dotenv()
+
+# Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 }
 
 
